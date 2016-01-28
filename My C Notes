@@ -1,0 +1,99 @@
+Basics
+-> Macros and Preprocessor
+	-> all the lines starting with "#" is Preprocessed by the C compiler means a new program is generated after replacing the code after "#".
+	-> When we use include directive,  the contents of included header file (after preprocessing) are copied to the current file.
+	   Angular brackets < and > instruct the preprcessor to look in the standard folder where all header files are held.
+	   Double quotes “ and “ instruct the preprcessor to look into the current folder and if the file is not present in current folder, then in standard folder of all header files.
+	-> define replace the matching token with defined value but //Note that it is replaces without evaluation.
+	-> The macros can take function like arguments, the arguments are not checked for data type. For example, the following macro INCREMENT(x) can be used for x of any data type.
+		#include <stdio.h>
+		#define INCREMENT(x) ++x
+	-> the macros can be written in multiple lines
+
+-> Variable Declaration,Definition and Scope
+	-> Declaration is simply selecting the token but when defined some memory is also allocated
+	   like :-
+	   			int a;//both declaration and definition
+	   			extern int b;//only declaration
+	-> Scope of the Variable is defined in the brackets it is defined and all the subsequent bracket inside that bracket.
+	   Best example :-
+	   				int main()
+					{
+  						{
+      						int x = 10, y  = 20;
+      							{
+          							// The outer block contains declaration of x and y, so
+							        // following statement is valid and prints 10 and 20
+							        printf("x = %d, y = %d\n", x, y);
+          								{
+								              // y is declared again, so outer block y is not accessible
+								              // in this block
+								              int y = 40;
+
+								              x++;  // Changes the outer block variable x to 11
+								              y++;  // Changes this block's variable y to 41
+
+								              printf("x = %d, y = %d\n", x, y);
+								          }
+ 									// This statement accesses only outer block's variables
+          							printf("x = %d, y = %d\n", x, y);
+      							}
+  						}
+  						return 0;
+					}
+	-> C allows a global variable to be declared again when first declaration doesn’t initialize the variable.
+
+-> Storage Classes
+	-> Static variables have a property of preserving their value even after they are out of their scope!
+	   Hence, static variables preserve their previous value in their previous scope and are not initialized again in the new scope.
+	-> A static int variable remains in memory while the program is running. A normal or auto variable is destroyed when a function call where the variable was declared is over.
+	-> Static variables are allocated memory in data segment, not stack segment
+	-> Static variables (like global variables) are initialized as 0 if not initialized explicitly.
+	-> static variables can only be initialized using constant literals.
+	-> In C, if an object that has static storage duration is not initialized explicitly, then:
+			— if it has pointer type, it is initialized to a NULL pointer;
+			— if it has arithmetic type, it is initialized to (positive or unsigned) zero;
+			— if it is an aggregate, every member is initialized (recursively) according to these rules;
+			— if it is a union, the first named member is initialized (recursively) according to these rules.
+
+-> Input/Output
+	-> printf() returns the number of characters successfully written on the output and scanf() returns number of items successfully read.
+		For example, below program prints geeksforgeeks 13
+
+		int main()
+		{
+		  printf(" %d", printf("%s", "geeksforgeeks"));
+		  getchar();
+		}
+
+		Irrespective of the string user enters, below program prints 1.
+		int main()
+		{
+		  char a[50];
+		  printf(" %d", scanf("%s", a));
+		  getchar();
+		}
+	-> scanf family functions support scanset specifiers which are represented by %[]. Inside scanset, we can specify single character or range of characters.
+	   While processing scanset, scanf will process only those characters which are part of scanset.
+	   For Example:-
+	 			  /* A simple scanset example */
+				   #include <stdio.h>
+				   int main(void)
+				   {
+				       char str[128];
+				    	printf("Enter a string: ");
+				        scanf("%[A-Z]s", str);
+			    	   	printf("You entered: %s\n", str);
+				    	return 0;
+				   }
+    -> In C printf(), %n is a special format specifier which instead of printing something causes printf() to load the variable pointed by the
+       corresponding argument with a value equal to the number of characters that have been printed by printf() before the occurrence of %n.
+
+-> Enum,Struct and union
+	-> Enumeration (or enum) is a user defined data type in C. It is mainly used to assign names to integral constants, the names make a program easy to read and maintain.
+	-> Two enum names can have same value
+	-> If we do not explicitly assign values to enum names, the compiler by default assigns values starting from 0
+	-> All unassigned names get value as value of previous name plus one.
+
+
+For more indepth reading do follow geeksforgeeks page .
